@@ -23,6 +23,8 @@ public:
 	Flight();
 	Flight(string, string, string, string, string);	//Construct a flight for the fiven values
 	Flight(string);							//Construct a flight from a single string of information
+	bool checkDep(string);
+	bool checkDes(string);
 };
 
 int Time(string);

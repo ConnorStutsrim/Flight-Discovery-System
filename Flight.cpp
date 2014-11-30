@@ -44,6 +44,20 @@ Flight::Flight(string inputString) {
 	}
 }
 
+bool Flight::checkDep(string str){
+	if (str==departureCity){
+		return 1;
+	}
+	return 0;
+}
+
+bool Flight::checkDes(string str){
+	if (str==destinationCity){
+		return 1;
+	}
+	return 0;
+}
+
 //convert time string to int using ascii code
 int Time(string Atime){
 	int TimeInt;

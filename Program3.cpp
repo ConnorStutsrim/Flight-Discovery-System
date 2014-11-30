@@ -16,6 +16,7 @@ int main(int argc, char const *argv[]){
 		Trip newTrip;
 		newTrip.readFile(argv[1]);
 		newTrip.userInput();
+		newTrip.Objective();
 	}
 	else{
 		cout<<"Wrong command line format!\nCommand line should be 'fly <ddfs.txt>'"<<endl;

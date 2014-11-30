@@ -20,9 +20,11 @@ public:
 	~Trip();
 	void readFile(char const *);
 	void userInput();
+	void Objective();
 };
 
-bool checkCity(string);
+bool checkDepCity(string,vector<Flight>);
+bool checkDesCity(string,vector<Flight>);
 bool checkDate(string);
 bool checkTime(string);
 int Date(string);
