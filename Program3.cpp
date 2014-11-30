@@ -9,11 +9,13 @@
 #include <iostream>
 using namespace std;
 
-#include "Function.h"
+#include "Trip.h"
 
 int main(int argc, char const *argv[]){
 	if (argc==2){
-		readFile(argv[1]);
+		Trip newTrip;
+		newTrip.readFile(argv[1]);
+		newTrip.userInput();
 	}
 	else{
 		cout<<"Wrong command line format!\nCommand line should be 'fly <ddfs.txt>'"<<endl;

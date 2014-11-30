@@ -4,7 +4,6 @@
 using namespace std;
 
 #include "Flight.h"
-#include "Function.h"
 
 
 /*
@@ -18,9 +17,7 @@ Flight::Flight() {
 	cost = "$0";
 	costInt=0;
 	departureTime = "0:00am";
-	departureTimeInt=0;
 	destinationTime = "0:00am";
-	destinationTimeInt=0;
 }
 
 //Value-input constructor
@@ -32,7 +29,6 @@ Flight::Flight(string departureCity, string destinationCity, string cost, string
 	temp[0]='0';
 	istringstream (temp)>>costInt;
 	this->departureTime = departureTime;
-	departureTimeInt=Time(departureTime);
 	this->destinationTime = destinationTime;
 }
 
@@ -46,4 +42,22 @@ Flight::Flight(string inputString) {
 			tokenLength++;
 		}
 	}
+}
+
+//convert time string to int using ascii code
+int Time(string Atime){
+	int TimeInt;
+	if (Atime.length()==7){
+		TimeInt=((Atime[0]-48)*600)+((Atime[1]-48)*60)+((Atime[3]-48)*10)+(Atime[4]-48);
+		if (Atime[5]=='p'){
+			TimeInt=TimeInt+720;
+		}
+	}
+	else{
+		TimeInt=(Atime[0]-48)*60+(Atime[2]-48)*10+(Atime[3]-48);
+		if (Atime[4]=='p'){
+			TimeInt=TimeInt+720;
+		}
+	}
+	return TimeInt;
 }

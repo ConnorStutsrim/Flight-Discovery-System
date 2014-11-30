@@ -25,4 +25,6 @@ public:
 	Flight(string);							//Construct a flight from a single string of information
 };
 
+int Time(string);
+
 #endif
