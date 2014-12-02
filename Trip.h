@@ -8,7 +8,7 @@ using namespace std;
 
 class Trip{
 private:
-	vector<Flight> flights;
+	vector<Flight> itinerary;
 	string depart;
 	string dest;
 	string depDate;
@@ -18,8 +18,9 @@ private:
 public:
 	Trip();
 	~Trip();
-	void readFile(char const *);
+	void addFlight(Flight);
 	void userInput();
+	int Date();
 };
 
 bool checkCity(string);
