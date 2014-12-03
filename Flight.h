@@ -26,11 +26,13 @@ public:
 	/*
 	Utility functions
 	*/
+	string getDepartureCity();	
+	string getDestinationCity();
 	string getDepartureTimeString();
 	string getDestinationTimeString();
 	string getCostString();
 	int timeStringToInt(string Atime);
-
+	void print();
 	//Destructor
 	~Flight();
 };

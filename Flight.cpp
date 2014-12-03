@@ -41,8 +41,8 @@ Flight::Flight(string departureCity, string destinationCity, string cost, string
 
 	this->destinationCity = destinationCity;
 	
-	string::size_type sz;
-	float costFloat = stof(cost, &sz);
+	string correctedCostString = cost.substr(1);
+	float costFloat = std::stof(correctedCostString);
 	this->cost = costFloat;
 	
 	this->departureTime = Time(timeStringToInt(departureTime));
@@ -55,8 +55,20 @@ Flight::Flight(string inputString) {
 
 }
 
+/*
+Utility Functions
+*/
+
+string Flight::getDepartureCity() {
+	return departureCity;
+}
+
+string Flight::getDestinationCity() {
+	return destinationCity;
+}
+
 //convert time string to int using ascii code
-int timeStringToInt(string Atime){
+int Flight::timeStringToInt(string Atime){
 	int TimeInt;
 	if (Atime.length() == 7){
 		TimeInt = ((Atime[0] - 48) * 600) + ((Atime[1] - 48) * 60) + ((Atime[3] - 48) * 10) + (Atime[4] - 48);
@@ -71,4 +83,12 @@ int timeStringToInt(string Atime){
 		}
 	}
 	return TimeInt;
+}
+
+void Flight::print() {
+	cout << departureCity << " " << destinationCity << " " << departureTime << " " << destinationTime << " $" << cost << endl;
+}
+
+Flight::~Flight() {
+
 }

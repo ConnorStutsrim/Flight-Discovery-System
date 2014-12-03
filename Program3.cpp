@@ -11,6 +11,7 @@
 using namespace std;
 
 #include "Trip.h"
+#include "DDFS.h"
 
 bool checkCity(string str){
 	for (int i = 0; i < str.length(); ++i){
@@ -44,7 +45,7 @@ bool checkTime(string str){
 }
 
 //Will be used to construct the Graph flightSchedule
-void readFile(char const *filename, /*Graph &flightSchedule*/){
+void readFile(char const *filename, DDFS &flightSchedule){
 	string temp, departureCity, destinationCity, departureTime, destinationTime, cost;
 	ifstream ddfs;
 	ddfs.open(filename);
@@ -59,7 +60,7 @@ void readFile(char const *filename, /*Graph &flightSchedule*/){
 			ddfs >> destinationTime;
 			ddfs >> cost;
 			Flight Aflight(departureCity, destinationCity, cost, departureTime, destinationTime);
-			//flights.push_back(Aflight);
+			flightSchedule.addFlight(Aflight);
 		}
 	}
 }
@@ -68,9 +69,9 @@ void readFile(char const *filename, /*Graph &flightSchedule*/){
 
 int main(int argc, char const *argv[]){
 	if (argc==2){
-		/*Trip newTrip;
-		newTrip.readFile(argv[1]);
-		newTrip.userInput();*/
+		DDFS flightSchedule;
+		readFile(argv[1], flightSchedule);
+		flightSchedule.print();
 	}
 	else{
 		cout<<"Wrong command line format!\nCommand line should be 'fly <ddfs.txt>'"<<endl;

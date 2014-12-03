@@ -32,12 +32,12 @@ bool Time::operator==(const Time& rightTime) const {
 ostream &operator<<(ostream &out, const Time &t) {
 	string timeString;
 	int timeTemp = t.timeInt;
-	int hours;
-	int minutes;
+	int hours = 0;
+	int minutes = 0;
 	bool am = true;
 	while (timeTemp > 60) {
 		timeTemp -= 60;
-		hours += 1;
+		hours++;
 	}
 	minutes = timeTemp;
 	if (hours >= 12) {
@@ -45,17 +45,18 @@ ostream &operator<<(ostream &out, const Time &t) {
 		hours -= 12;
 	}
 	if (hours > 0 && hours < 10) {
-		timeString[0] = hours + 48;
+		timeString.push_back(hours + 48);
 	}
 	else if (hours >= 10) {
-		timeString[0] = '1';
-		timeString[1] = hours + 48;
+		timeString.push_back('1');
+		timeString.push_back((hours % 10) + 48);
 	}
 	else {
 		timeString = "12";
 	}
-	timeString[2] = ':';
-	timeString[3] = (minutes / 10) + 48;
-	timeString[4] = (minutes % 10) + 48;
+	timeString.push_back(':');
+	timeString.push_back((minutes / 10) + 48);
+	timeString.push_back((minutes % 10) + 48);
 	out << timeString;
+	return out;
 }
