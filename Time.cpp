@@ -14,16 +14,16 @@ Time::Time(int time) {
 }
 
 
-Time Time::operator+(const Time& rightTime) const {
+Time Time::operator+(int duration) const {
 	Time t;
-	t.timeInt = this->timeInt + rightTime.timeInt;
+	t.timeInt = this->timeInt + duration;
 	return t;
 }
 
-Time Time::operator-(const Time& rightTime) const {
-	Time t;
-	t.timeInt = this->timeInt - rightTime.timeInt;
-	return t;
+int Time::operator-(const Time& rightTime) const {
+	int i;
+	i = this->timeInt - rightTime.timeInt;
+	return i;
 }
 
 bool Time::operator==(const Time& rightTime) const {
