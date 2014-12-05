@@ -63,14 +63,6 @@ Flight::Flight(string inputString) {
 Utility Functions
 */
 
-string Flight::getDepartureCity() {
-	return departureCity;
-}
-
-string Flight::getDestinationCity() {
-	return destinationCity;
-}
-
 //convert time string to int using ascii code
 int Flight::timeStringToInt(string Atime){
 	int TimeInt;

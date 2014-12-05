@@ -8,13 +8,14 @@ using namespace std;
 
 class Time {
 private:
-	int timeInt;
 
 public:
 	Time();
 	Time(const Time&);
 	Time(int);
 	
+	int timeInt;
+
 	Time operator+(int duration) const;
 	int operator-(const Time& rightTime) const;
 	bool operator==(const Time& rightTime) const;

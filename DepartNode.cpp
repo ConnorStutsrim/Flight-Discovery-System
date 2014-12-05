@@ -11,7 +11,7 @@ void DepartNode::setCityName(string City) {
 void DepartNode::addFlight(Flight newFlight) {
 	int i = 0;
 	bool duplicate = false;
-	string newFlightCityName = newFlight.getDestinationCity();
+	string newFlightCityName = newFlight.destinationCity;
 	for (i; i < DestinationList.size(); i++) {
 		if (DestinationList[i].CityName == newFlightCityName) {
 			duplicate = true;
@@ -29,6 +29,21 @@ void DepartNode::addFlight(Flight newFlight) {
 		DestinationList.push_back(newDestination);
 	}
 	
+}
+
+Flight DepartNode::nextFlight(std::string destCityName, Time currentTime) {
+  Flight retFlight;
+  for (int i = 0; i < DestinationList.size(); i++) {
+    if (DestinationList[i].CityName != destCityName) {
+      for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
+	if (DestinationList[i].FlightList[j].departureTime.timeInt > currentTime.timeInt) {
+	  retFlight = DestinationList[i].FlightList[j];
+	  break;
+	}
+      }
+    }
+  }
+  return retFlight; 
 }
 
 void DepartNode::print() {

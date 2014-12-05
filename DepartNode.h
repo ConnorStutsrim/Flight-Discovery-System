@@ -11,11 +11,14 @@ private:
 
 public:
 	DepartNode();
+	
 	string CityName;
 	vector<Flight> FlightList;
 	vector<DestNode> DestinationList;
+	
 	void setCityName(string);
 	void addFlight(Flight);
+	Flight nextFlight(std::string, Time);
 	void print();
 };
 

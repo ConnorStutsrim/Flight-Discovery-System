@@ -8,7 +8,7 @@ DDFS::DDFS() {
 void DDFS::addFlight(Flight newFlight) {
 	int i = 0;
 	bool duplicate = false;
-	string newDepartCityName = newFlight.getDepartureCity();
+	string newDepartCityName = newFlight.departureCity;
 	for (i; i < departureNodes.size(); i++) {
 		if (departureNodes[i].CityName == newDepartCityName) {
 			duplicate = true;
