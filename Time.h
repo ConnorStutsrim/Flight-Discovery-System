@@ -12,11 +12,11 @@ private:
 
 public:
 	Time();
-	Time(const Time &t);
-	Time(int time);
+	Time(const Time&);
+	Time(int);
 	
-	Time operator+(const Time& rightTime) const;
-	Time operator-(const Time& rightTime) const;
+	Time operator+(int duration) const;
+	int operator-(const Time& rightTime) const;
 	bool operator==(const Time& rightTime) const;
 
 	friend ostream& operator<<(ostream &out, const Time &t);
