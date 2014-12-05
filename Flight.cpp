@@ -1,7 +1,6 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-using namespace std;
 
 #include "Flight.h"
 
@@ -17,6 +16,7 @@ Flight::Flight() {
 	cost = 0;
 	departureTime = 0;
 	destinationTime = 0;
+	duration = 0;
 }
 
 //Value-input constructor
@@ -24,8 +24,9 @@ Flight::Flight(string departureCity, string destinationCity, float cost, int dep
 	this->departureCity = departureCity;
 	this->destinationCity = destinationCity;
 	this->cost = cost;
-	this->departureTime = Time::Time(departureTime);
-	this->destinationTime = Time::Time(destinationTime);
+	this->departureTime = Time(departureTime);
+	this->destinationTime = Time(destinationTime);
+	this->duration = destinationTime - departureTime;
 }
 
 Flight::Flight(string departureCity, string destinationCity, float cost, Time departureTime, Time destinationTime){
@@ -34,6 +35,7 @@ Flight::Flight(string departureCity, string destinationCity, float cost, Time de
 	this->cost = cost;
 	this->departureTime = departureTime;
 	this->destinationTime = destinationTime;
+	this->duration = destinationTime - departureTime;
 }
 
 Flight::Flight(string departureCity, string destinationCity, string cost, string departureTime, string destinationTime){
@@ -48,6 +50,8 @@ Flight::Flight(string departureCity, string destinationCity, string cost, string
 	this->departureTime = Time(timeStringToInt(departureTime));
 	
 	this->destinationTime = Time(timeStringToInt(destinationTime));
+	
+	this->duration = this->destinationTime - this->departureTime;
 }
 
 //String constructor
