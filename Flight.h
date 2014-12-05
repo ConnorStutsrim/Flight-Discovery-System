@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Time.h"
 
-
+class Time;
 class Flight{
 private:
 	std::string departureCity;
@@ -12,6 +12,7 @@ private:
 	float cost;
 	Time departureTime;		//Times are implemented as the number of minutes after midnight
 	Time destinationTime;
+	int duration;
 
 public:
 	/*
