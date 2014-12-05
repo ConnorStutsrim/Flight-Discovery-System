@@ -6,12 +6,15 @@ all:	fly
 
 # Specify the object files that the target depends on
 # Also specify the object files needed to create the executable
-fly:	Program3.o Flight.o Trip.o DDFS.o DepartNode.o DestNode.o
-	g++  Program3.o Flight.o Trip.o DDFS.o DepartNode.o DestNode.o -o fly
+fly:	Program3.o Time.o Flight.o Trip.o DDFS.o DepartNode.o DestNode.o
+	g++  Program3.o Time.o Flight.o Trip.o DDFS.o DepartNode.o DestNode.o -o fly
 
 # Specify how the object files should be created from source files
 Program3.o:	Program3.cpp 
 	g++ $(FLAGS) Program3.cpp
+
+Time.o:	Time.cpp
+	g++ $(FLAGS) Time.cpp
 
 Trip.o:	Trip.cpp Trip.h
 	g++ $(FLAGS) Trip.cpp
