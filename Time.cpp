@@ -1,6 +1,7 @@
 #include "Time.h"
 
-Time::Time() {
+Time::Time()
+{
 	timeInt = 0;
 }
 
