@@ -65,7 +65,7 @@ void readFile(char const *filename, DDFS &flightSchedule){
 	}
 }
 
-void userObjective() {
+void userObjective(DDFS * d) {
   char temp;
   cout << "Please specify user objective: " << endl;
   cout << "J: Just Get Me There Today" << endl;
@@ -91,6 +91,7 @@ void userObjective() {
   }
   else if (temp == 'P') {
     cout << "Printing the daily direct flight schedule: " << endl;
+    d.print();
    
   }
   else {
