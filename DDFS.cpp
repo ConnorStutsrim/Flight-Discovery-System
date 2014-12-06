@@ -1,9 +1,26 @@
 #include "DDFS.h"
+#include <climits>
+#include <iostream>
+#include <algorithm>    // std::reverse
 
 DDFS::DDFS() {
-	
+
+
+firstTravelIteration = true;
 }
 
+void DDFS::createDataVector()
+{
+for(int i =0; i < departureNodes.size(); i++)
+{
+data d;
+d.cumulativeTime = INT_MAX;
+d.currentCity = departureNodes[i].CityName;
+d.previousCity = "";
+dataVector.push_back(d);
+}
+
+}
 
 void DDFS::addFlight(Flight newFlight) {
 	int i = 0;
@@ -27,6 +44,140 @@ void DDFS::addFlight(Flight newFlight) {
 
 }
 
+void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int currentTime)
+{
+ 
+		
+	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
+	{
+		startingCity = start;
+		destinationCity = dest;
+		
+		if(start == dest)
+		{
+		cout << "Error: You're already there... " << endl;
+		return;
+		}
+	
+
+
+		firstTravelIteration = false;
+		currentTime = 0;
+		prevCity = start;
+	
+		for(int i = 0; i < departureNodes.size(); i++)
+		{
+			if(departureNodes[i].CityName == start)   //find corresponding departure node
+			{
+				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
+				{
+					JustGetMeThereToday(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+
+				}
+			}
+		}
+	} 
+	
+	else				
+	{
+
+
+
+
+		for(int i = 0; i < departureNodes.size(); i++)
+					{
+						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
+						{
+						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		//find a flight flight from prevCity to start and increment
+
+
+						}
+					}
+
+	
+
+		for(int i = 0; i < dataVector.size(); i++)
+		{
+		if(dataVector[i].currentCity == start)	//find the corresponding data for this city
+			{
+			if(dataVector[i].cumulativeTime > currentTime) //if it's faster
+				{
+				dataVector[i].cumulativeTime = currentTime; //update data
+				dataVector[i].previousCity = prevCity;
+				if(start != dest)
+				{
+				for(int k = 0; k < departureNodes.size(); k++)
+					{
+						if(departureNodes[k].CityName == start)   //find corresponding departure node
+						{
+							for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
+							{
+								JustGetMeThereToday(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
+							}
+						}
+					}
+				}
+
+				}
+			}
+		}
+	
+    }
+    
+}
+
+void DDFS::setFlightVector()
+{
+string from;
+string to;
+int currentTime;
+to = destinationCity;
+currentTime = 0;
+
+
+	for(int i = 0; i < dataVector.size(); i++)
+	{
+		//cout << to << endl;
+		if(dataVector[i].currentCity == to)   //find corresponding datavector
+		{
+			from = dataVector[i].previousCity;
+		//cout << from << endl;
+			for(int k = 0; k < departureNodes.size(); k++)
+			{
+				if(departureNodes[k].CityName == from)   //find corresponding departure node
+				{
+					
+			flights.push_back(departureNodes[k].nextFlight(to, currentTime));
+			currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
+					if(from != startingCity)
+					{
+						to = dataVector[i].previousCity;
+						k = departureNodes.size();
+						i = -1;
+					}
+					
+				}
+			}
+			
+		}
+	}
+
+ std::reverse(flights.begin(),flights.end());
+
+ 
+for(int i = 0; i < flights.size(); i++)
+{
+flights[i].print();
+}
+}
+void DDFS::printDataVector()
+{
+for(int i = 0; i < dataVector.size(); i++ )
+{
+cout << "City: " << dataVector[i].currentCity << " Time: " << dataVector[i].cumulativeTime << " Last City: " << dataVector[i].previousCity << endl;
+}
+
+}
 void DDFS::print() {
 	for (int i = 0; i < departureNodes.size(); i++) {
 		departureNodes[i].print();
