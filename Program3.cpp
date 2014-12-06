@@ -65,7 +65,7 @@ void readFile(char const *filename, DDFS &flightSchedule){
 	}
 }
 
-void userObjective(DDFS * d) {
+void userObjective(DDFS d) {
   char temp;
   cout << "Please specify user objective: " << endl;
   cout << "J: Just Get Me There Today" << endl;
@@ -105,7 +105,7 @@ int main(int argc, char const *argv[]){
 		readFile(argv[1], flightSchedule);
 		Trip customerTrip;
 		customerTrip.userInput();
-		userObjective();
+		userObjective(flightSchedule);
 	}
 	else{
 		cout<<"Wrong command line format!\nCommand line should be 'fly <ddfs.txt>'"<<endl;
