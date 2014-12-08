@@ -17,10 +17,15 @@ private:
 	string startingCity;
 	string destinationCity;
 	bool firstTravelIteration;
+	int cost;	//variable used for DDFS:FewestHops()
+	int hops;	//variable used for DDFS:CheapestTrip()
 	
 public:
 	DDFS();
 	void JustGetMeThereToday(string start,string prevCity ,string dest, int currentTime);
+	void FewestHops(string start,string prevCity ,string dest, int currentTime);
+	void ShortestTrip(string start,string prevCity ,string dest, int currentTime);
+	void CheapestTrip(string start,string prevCity ,string dest, int currentTime);
 	void setFlightVector();
 	void addFlight(Flight);
 	void createDataVector();
