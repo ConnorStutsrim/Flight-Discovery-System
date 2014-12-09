@@ -77,9 +77,6 @@ void userObjective(DDFS d) {
   if (temp == 'J') {
     cout << "This objective has not yet been implemented" << endl;
   }
-  else if (temp == 'J') {
-    cout << "This objective has not yet been implemented" << endl;
-  }
   else if (temp == 'F') {
     cout << "This objective has not yet been implemented" << endl;
   }
