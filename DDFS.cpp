@@ -56,7 +56,7 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 	{
 		startingCity = start;
 		destinationCity = dest;
-		
+		cout << "you want to go from " << start <<endl << "to " << dest << endl << " you want all flights to be after : " << currentTime << "minutes before midnight" << endl;
 		if(start == dest)
 		{
 		cout << "Error: You're already there... " << endl;
@@ -144,7 +144,11 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 	{
 		startingCity = start;
 		destinationCity = dest;
-		
+		hops = 0;
+		cout << "start: " << start << endl;
+		cout << "dest: " << dest << endl;
+		cout << "currentTime: " << currentTime << endl;
+		cout << "hops: " << hops << endl;
 		if(start == dest)
 		{
 		cout << "Error: You're already there... " << endl;
@@ -307,7 +311,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 	{
 		startingCity = start;
 		destinationCity = dest;
-		
+		cost = 0;
 		if(start == dest)
 		{
 		cout << "Error: You're already there... " << endl;
@@ -419,7 +423,7 @@ bool first = false;
 					
 
 			
-
+			departureNodes[k].nextFlight(to, currentTime).print();
 			flights.push_back(departureNodes[k].nextFlight(to, currentTime));
 			currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
 					if(from != startingCity)
