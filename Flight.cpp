@@ -78,6 +78,9 @@ int Flight::timeStringToInt(string Atime){
 			TimeInt = TimeInt + 720;
 		}
 	}
+	if (TimeInt >= 1440) {
+		TimeInt -= 720;
+	}
 	return TimeInt;
 }
 
