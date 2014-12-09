@@ -449,6 +449,13 @@ for(int i = 0; i < dataVector.size(); i++ )
 {
 cout << "City: " << dataVector[i].currentCity << " Time: " << dataVector[i].cumulativeTime << " Last City: " << dataVector[i].previousCity << endl;
 }
+}
+void DDFS::printFlightVector()
+{
+for(int i = 0; i < flights.size(); i++)
+{
+	flights[i].print();
+} 
 
 }
 void DDFS::print() {
