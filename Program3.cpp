@@ -75,21 +75,29 @@ void userObjective(DDFS d, Trip t) {
   cout << "P: Print" << endl;
   temp = getchar();
   if (temp == 'J') {
+	d.createDataVector(t.getDepartCity());
 	d.JustGetMeThereToday(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
 	d.setFlightVector();
 	d.printFlightVector();
   }
   else if (temp == 'F') {
+	d.createDataVector(t.getDepartCity());
+	cout << "---" << endl;
+	d.printDataVector();
 	d.FewestHops(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
 	d.setFlightVector();
 	d.printFlightVector();
+	cout << "---" << endl;
+	d.printDataVector();
   }
   else if (temp == 'S') {
+	d.createDataVector(t.getDepartCity());
 	d.ShortestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
 	d.setFlightVector();
 	d.printFlightVector();
   }
   else if (temp == 'C') {
+	d.createDataVector(t.getDepartCity());
 	d.CheapestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
 	d.setFlightVector();
 	d.printFlightVector();
