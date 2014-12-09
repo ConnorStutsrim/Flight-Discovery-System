@@ -20,7 +20,6 @@ public:
 	~Trip();
 	void addFlight(Flight);
 	void userInput();
-	int Date();
 };
 
 bool checkCity(string);
