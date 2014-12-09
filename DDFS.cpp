@@ -381,13 +381,23 @@ string to;
 int currentTime;
 to = destinationCity;
 currentTime = 0;
-
+bool first = false;
 
 	for(int i = 0; i < dataVector.size(); i++)
 	{
 		//cout << to << endl;
 		if(dataVector[i].currentCity == to)   //find corresponding datavector
 		{
+
+			if(first == false)
+			{
+			first = true;
+			if(dataVector[i].previousCity == "")
+			{
+				return;					//we never found a path
+				cout << "Error: Path from " << startingCity << " to " << destinationCity << endl; 
+			}	
+			}
 			from = dataVector[i].previousCity;
 		//cout << from << endl;
 			for(int k = 0; k < departureNodes.size(); k++)
@@ -395,6 +405,9 @@ currentTime = 0;
 				if(departureNodes[k].CityName == from)   //find corresponding departure node
 				{
 					
+
+			
+
 			flights.push_back(departureNodes[k].nextFlight(to, currentTime));
 			currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
 					if(from != startingCity)
