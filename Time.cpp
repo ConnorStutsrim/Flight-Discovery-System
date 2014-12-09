@@ -59,11 +59,12 @@ ostream &operator<<(ostream &out, const Time &t) {
 	timeString.push_back((minutes / 10) + 48);
 	timeString.push_back((minutes % 10) + 48);
 	if (am) {
-		timeString.push_back("am");
+	  timeString.push_back('a');
 	}
 	else {
-		timeString.push_back("pm");
+		timeString.push_back('p');
 	}
+	timeString.push_back('m');
 	out << timeString;
 	return out;
 }
