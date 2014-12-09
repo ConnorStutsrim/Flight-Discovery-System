@@ -29,7 +29,7 @@ public:
 	void setFlightVector();
 	void addFlight(Flight);
 	void printFlightVector();
-	void createDataVector(string);
+	void createDataVector(string city);
 	void print();
 	void printDataVector();
 
