@@ -9,16 +9,19 @@ DDFS::DDFS() {
 firstTravelIteration = true;
 }
 
-void DDFS::createDataVector()
+void DDFS::createDataVector(string city)
 {
 cost = 0;
 hops = 0;
+startingCity = city;
 for(int i =0; i < departureNodes.size(); i++)
 {
 data d;
 d.cumulativeTime = INT_MAX;
-if(departureNodes[i].CityName == startingCity)	//It takes 0 minutes/dollars/hops to get to from starting city to starting city
+if(departureNodes[i].CityName == startingCity)
+{	//It takes 0 minutes/dollars/hops to get to from starting city to starting city
 d.cumulativeTime = 0;
+}
 d.currentCity = departureNodes[i].CityName;
 d.previousCity = "";
 dataVector.push_back(d);
@@ -184,7 +187,8 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
 						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;
-						hops++;		//find a flight flight from prevCity to start and increment
+						hops= hops+1;		
+
 
 
 						}
@@ -448,10 +452,10 @@ cout << "Error: Path from " << startingCity << " to " << destinationCity << " co
  std::reverse(flights.begin(),flights.end());
 
  
-for(int i = 0; i < flights.size(); i++)
-{
-flights[i].print();
-}
+//for(int i = 0; i < flights.size(); i++)
+//{
+//flights[i].print();
+//}
 }
 void DDFS::printDataVector()
 {
