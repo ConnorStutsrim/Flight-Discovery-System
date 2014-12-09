@@ -17,6 +17,8 @@ for(int i =0; i < departureNodes.size(); i++)
 {
 data d;
 d.cumulativeTime = INT_MAX;
+if(departureNodes[i].CityName == startingCity)	//It takes 0 minutes/dollars/hops to get to from starting city to starting city
+d.cumulativeTime = 0;
 d.currentCity = departureNodes[i].CityName;
 d.previousCity = "";
 dataVector.push_back(d);
