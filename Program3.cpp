@@ -76,15 +76,23 @@ void userObjective(DDFS d, Trip t) {
   temp = getchar();
   if (temp == 'J') {
 	d.JustGetMeThereToday(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
+	d.setFlightVector();
+	d.printFlightVector();
   }
   else if (temp == 'F') {
 	d.FewestHops(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
+	d.setFlightVector();
+	d.printFlightVector();
   }
   else if (temp == 'S') {
 	d.ShortestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
+	d.setFlightVector();
+	d.printFlightVector();
   }
   else if (temp == 'C') {
 	d.CheapestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
+	d.setFlightVector();
+	d.printFlightVector();
   }
   else if (temp == 'P') {
     cout << "Printing the daily direct flight schedule: " << endl;
