@@ -91,7 +91,11 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 						{
 						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		
 						if(currentTime > (24*60)) //reached the next day
+						{
+						cout << "No flights to get you there that day" << endl;
 						return;
+						
+						}
 						//find a flight flight from prevCity to start and increment
 
 
@@ -337,6 +341,12 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
 						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		//find a flight flight from prevCity to start and increment
+
+						if(currentTime > (24*60)) //reached the next day
+						{
+
+			//			return;
+						
 						cost+= departureNodes[i].nextFlight(start, currentTime).cost;	
 
 						}
@@ -373,7 +383,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
     }
     
 }
-
+}
 void DDFS::setFlightVector()
 {
 string from;
@@ -395,7 +405,7 @@ bool first = false;
 			if(dataVector[i].previousCity == "")
 			{
 				return;					//we never found a path
-				cout << "Error: Path from " << startingCity << " to " << destinationCity << endl; 
+				cout << "Error: Path from " << startingCity << " to " << destinationCity << " could not be found" << endl; 
 			}	
 			}
 			from = dataVector[i].previousCity;
