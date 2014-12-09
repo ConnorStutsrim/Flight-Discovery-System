@@ -10,15 +10,21 @@ using namespace std;
 Trip::Trip(){}
 Trip::~Trip(){}
 
+// Takes string representation of date and returns integer representaiton of date
 int Date(string str){
 	int x = (str[9] - 48) * 10000 + (str[8] - 48) * 100000 + (str[7] - 48) * 1000000 + (str[6] - 48) * 10000000 + (str[4] - 48) * 1000 + (str[3] - 48) * 100 + (str[0] - 48) * 10 + (str[1] - 48);
 	return x;
 }
 
+// Takes a Flight argument and adds a copy of that flight to the itinerary structure
 void Trip::addFlight(Flight inputFlight) {
 	itinerary.push_back(inputFlight);
 }
 
+// Handles user input of trip information
+// Prompts the user for input for trip fields (Departure City, Destination City, Departure Date, Departure Time, 
+// Return Date, and Return Time) and stores that information in the appropriate fields. Also checks that user 
+// input is in the correct format and can be interpreted.
 void Trip::userInput(){
 	string temp;
 
@@ -89,14 +95,19 @@ void Trip::userInput(){
 
 }
 
+// Departure City getter
 string Trip::getDepartCity()
 {
-return depart;
+	return depart;
 }
+
+// Destination City getter
 string Trip::getDestCity()
 {
-return dest;
+	return dest;
 }
+
+// Departure City getter
 int Trip::getDepTime()
 {
 int TimeInt;
@@ -118,6 +129,8 @@ int TimeInt;
 	return TimeInt;
 //return depTime;
 }
+
+// Return time getter
 int Trip::getReturnTime()
 {
 int TimeInt;
