@@ -68,13 +68,18 @@ void Trip::userInput(){
 	cout << "Please Specify Return Trip Information: " << endl;
 
 	while (1){
-		cout << "Return Date(DD/MM/YYYY): ";
-		getline(cin, temp);
-		if (checkDate(temp)){
-			returnDate = temp;
+		cout<<"Return Date(DD/MM/YYYY): ";
+		getline(cin,temp);
+		if (!checkDate(temp)){
+			cout<<"Wrong Format!"<<endl;
+		}
+		else if (Date(temp)<Date(depDate)){
+			cout<<"Return Date Must Be After Departure Date!"<<endl;
+		}
+		else{
+			returnDate=temp;
 			break;
 		}
-		else{ cout << "Wrong Format!" << endl; }
 	}
 
 	while (1){
