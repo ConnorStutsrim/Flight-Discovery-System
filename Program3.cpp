@@ -65,7 +65,7 @@ void readFile(char const *filename, DDFS &flightSchedule){
 	}
 }
 
-void userObjective(DDFS d) {
+void userObjective(DDFS d, Trip t) {
   char temp;
   cout << "Please specify user objective: " << endl;
   cout << "J: Just Get Me There Today" << endl;
@@ -75,16 +75,16 @@ void userObjective(DDFS d) {
   cout << "P: Print" << endl;
   temp = getchar();
   if (temp == 'J') {
-    cout << "This objective has not yet been implemented" << endl;
+	d.JustGetMeThereToday(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
   }
   else if (temp == 'F') {
-    cout << "This objective has not yet been implemented" << endl;
+	d.FewestHops(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
   }
   else if (temp == 'S') {
-    cout << "This objective has not yet been implemented" << endl;
+	d.ShortestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
   }
   else if (temp == 'C') {
-    cout << "This objective has not yet been implemented" << endl;
+	d.CheapestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
   }
   else if (temp == 'P') {
     cout << "Printing the daily direct flight schedule: " << endl;
@@ -102,7 +102,7 @@ int main(int argc, char const *argv[]){
 		readFile(argv[1], flightSchedule);
 		Trip customerTrip;
 		customerTrip.userInput();
-		userObjective(flightSchedule);
+		userObjective(flightSchedule, customerTrip);
 	}
 	else{
 		cout<<"Wrong command line format!\nCommand line should be 'fly <ddfs.txt>'"<<endl;
