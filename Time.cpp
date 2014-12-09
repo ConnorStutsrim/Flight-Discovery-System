@@ -36,7 +36,7 @@ ostream &operator<<(ostream &out, const Time &t) {
 	int hours = 0;
 	int minutes = 0;
 	bool am = true;
-	while (timeTemp > 60) {
+	while (timeTemp >= 60) {
 		timeTemp -= 60;
 		hours++;
 	}
@@ -58,6 +58,12 @@ ostream &operator<<(ostream &out, const Time &t) {
 	timeString.push_back(':');
 	timeString.push_back((minutes / 10) + 48);
 	timeString.push_back((minutes % 10) + 48);
+	if (am) {
+		timeString.push_back("am");
+	}
+	else {
+		timeString.push_back("pm");
+	}
 	out << timeString;
 	return out;
 }
