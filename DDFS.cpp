@@ -142,7 +142,7 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 void DDFS::FewestHops(string start, string prevCity, string dest, int currentTime)
 {
  
-		
+		cout << firstTravelIteration << endl;
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
 		startingCity = start;
@@ -152,12 +152,13 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 		cout << "dest: " << dest << endl;
 		cout << "currentTime: " << currentTime << endl;
 		cout << "hops: " << hops << endl;
+		currentTime = 0;						cout << "blah " << endl;
 		if(start == dest)
 		{
 		cout << "Error: You're already there... " << endl;
 		return;
 		}
-	
+							cout << "blah " << endl;
 
 
 		firstTravelIteration = false;
@@ -169,21 +170,24 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 			{
 				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 				{
-					JustGetMeThereToday(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+					cout << "1" << endl;
+					FewestHops(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+					cout << "2" << endl;
 
 				}
 			}
 		}
 	} 
 	
+
 	else				
 	{
 
 
 
-
 		for(int i = 0; i < departureNodes.size(); i++)
 					{
+
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
 						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;
@@ -212,7 +216,7 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 						{
 							for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 							{
-								JustGetMeThereToday(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
+								FewestHops(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
 							}
 						}
 					}
@@ -252,7 +256,7 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
 			{
 				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 				{
-					JustGetMeThereToday(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+					ShortestTrip(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
 
 				}
 			}
@@ -293,7 +297,7 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
 						{
 							for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 							{
-								JustGetMeThereToday(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
+								ShortestTrip(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
 							}
 						}
 					}
@@ -333,7 +337,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 			{
 				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 				{
-					JustGetMeThereToday(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+					CheapestTrip(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
 
 				}
 			}
@@ -380,7 +384,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 						{
 							for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 							{
-								JustGetMeThereToday(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
+								CheapestTrip(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
 							}
 						}
 					}
