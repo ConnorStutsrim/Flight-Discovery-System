@@ -397,7 +397,7 @@ string to;
 int currentTime;
 to = destinationCity;
 currentTime = 0;
-bool first = false;
+bool first = true;
 
 	for(int i = 0; i < dataVector.size(); i++)
 	{
@@ -405,9 +405,9 @@ bool first = false;
 		if(dataVector[i].currentCity == to)   //find corresponding datavector
 		{
 
-			if(first == false)
+			if(first == true)
 			{
-			first = true;
+			first = false;
 			if(dataVector[i].previousCity == "")
 			{
 				return;					//we never found a path
@@ -423,7 +423,7 @@ bool first = false;
 					
 
 			
-			departureNodes[k].nextFlight(to, currentTime).print();
+
 			flights.push_back(departureNodes[k].nextFlight(to, currentTime));
 			currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
 					if(from != startingCity)
