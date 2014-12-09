@@ -137,7 +137,7 @@ else {
 if (TimeString[5] == 'p') {
 	timeInt += 720;
 }
-timeInt += ((TimeString[0] * 600) + (TimeString[1] * 60) + (TimeString[3] * 10) + TimeString[4]);
+timeInt += (((TimeString[0] - 48) * 600) + ((TimeString[1] - 48) * 60) + ((TimeString[3]  - 48)* 10) + (TimeString[4] - 48));
 return timeInt;
 }
 
@@ -170,6 +170,6 @@ int Trip::getReturnTime() {
 	if (TimeString[5] == 'p') {
 		timeInt += 720;
 	}
-	timeInt += ((TimeString[0] * 600) + (TimeString[1] * 60) + (TimeString[3] * 10) + TimeString[4]);
+	timeInt += (((TimeString[0] - 48) * 600) + ((TimeString[1] - 48) * 60) + ((TimeString[3]  - 48)* 10) + (TimeString[4] - 48));
 	return timeInt;
 }
