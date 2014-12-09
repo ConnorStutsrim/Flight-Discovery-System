@@ -110,45 +110,66 @@ string Trip::getDestCity()
 // Departure City getter
 int Trip::getDepTime()
 {
-int TimeInt;
-	if (depTime.length() == 7){
-		TimeInt = ((depTime[0] - 48) * 600) + ((depTime[1] - 48) * 60) + ((depTime[3] - 48) * 10) + (depTime[4] - 48);
-		if (depTime[5] == 'p'){
-			TimeInt = TimeInt + 720;
+// Unifying String
+char TimeString[7];
+int timeInt;
+if (depTime.length() != 7) {
+	TimeString[0] = '0';
+	for (int i = 1; i <= 6; i++) {
+		TimeString[i] = depTime[i - 1];
+	}
+}
+else {
+	if (depTime[1] == '2') {
+		TimeString[0] = '0';
+		TimeString[1] = '0';
+		for (int i = 2; i <= 6; i++) {
+			TimeString[i] = depTime[i];
 		}
 	}
-	else{
-		TimeInt = (depTime[0] - 48) * 60 + (depTime[2] - 48) * 10 + (depTime[3] - 48);
-		if (depTime[4] == 'p'){
-			TimeInt = TimeInt + 720;
+	else {
+		for (int i = 0; i <= 6; i++) {
+			TimeString[i] = depTime[i];
 		}
 	}
-	if (TimeInt >= 1440) {
-		TimeInt -= 720;
-	}
-	return TimeInt;
-//return depTime;
+}
+// Calculating timeInt;
+if (TimeString[5] == 'p') {
+	timeInt += 720;
+}
+timeInt += ((TimeString[0] * 600) + (TimeString[1] * 60) + (TimeString[3] * 10) + TimeString[4]);
+return timeInt;
 }
 
 // Return time getter
-int Trip::getReturnTime()
-{
-int TimeInt;
-	if (returnTime.length() == 7){
-		TimeInt = ((returnTime[0] - 48) * 600) + ((returnTime[1] - 48) * 60) + ((returnTime[3] - 48) * 10) + (returnTime[4] - 48);
-		if (returnTime[5] == 'p'){
-			TimeInt = TimeInt + 720;
+int Trip::getReturnTime() {
+// Unifying String
+	char TimeString[7];
+	int timeInt;
+	if (returnTime.length() != 7) {
+		TimeString[0] = '0';
+		for (int i = 1; i <= 6; i++) {
+			TimeString[i] = returnTime[i - 1];
 		}
 	}
-	else{
-		TimeInt = (returnTime[0] - 48) * 60 + (returnTime[2] - 48) * 10 + (returnTime[3] - 48);
-		if (returnTime[4] == 'p'){
-			TimeInt = TimeInt + 720;
+	else {
+		if (returnTime[1] == '2') {
+			TimeString[0] = '0';
+			TimeString[1] = '0';
+			for (int i = 2; i <= 6; i++) {
+				TimeString[i] = returnTime[i];
+			}
+		}
+		else {
+			for (int i = 0; i <= 6; i++) {
+				TimeString[i] = returnTime[i];
+			}
 		}
 	}
-	if (TimeInt >= 1440 || TimeInt == 720) {
-		TimeInt -= 720;
+	// Calculating timeInt;
+	if (TimeString[5] == 'p') {
+		timeInt += 720;
 	}
-	return TimeInt;
-//return returnTime;
+	timeInt += ((TimeString[0] * 600) + (TimeString[1] * 60) + (TimeString[3] * 10) + TimeString[4]);
+	return timeInt;
 }
