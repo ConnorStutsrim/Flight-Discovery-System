@@ -64,7 +64,6 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 
 
 		firstTravelIteration = false;
-		currentTime = 0;
 		prevCity = start;
 	
 		for(int i = 0; i < departureNodes.size(); i++)
@@ -90,7 +89,10 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 					{
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
-						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		//find a flight flight from prevCity to start and increment
+						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		
+						if(currentTime > (24*60)) //reached the next day
+						return;
+						//find a flight flight from prevCity to start and increment
 
 
 						}
@@ -146,7 +148,6 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 
 
 		firstTravelIteration = false;
-		currentTime = 0;
 		prevCity = start;
 	
 		for(int i = 0; i < departureNodes.size(); i++)
@@ -229,7 +230,6 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
 
 
 		firstTravelIteration = false;
-		currentTime = 0;
 		prevCity = start;
 	
 		for(int i = 0; i < departureNodes.size(); i++)
@@ -311,7 +311,6 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 
 
 		firstTravelIteration = false;
-		currentTime = 0;
 		prevCity = start;
 	
 		for(int i = 0; i < departureNodes.size(); i++)
