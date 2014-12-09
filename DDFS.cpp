@@ -67,7 +67,7 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 
 		firstTravelIteration = false;
 		prevCity = start;
-	
+		currentTime = 0;
 		for(int i = 0; i < departureNodes.size(); i++)
 		{
 			if(departureNodes[i].CityName == start)   //find corresponding departure node
@@ -403,15 +403,19 @@ bool first = true;
 	{
 		//cout << to << endl;
 		if(dataVector[i].currentCity == to)   //find corresponding datavector
-		{
+		{	
+			cout << endl << dataVector[i].currentCity << " from " << dataVector[i].previousCity << endl;
+
 
 			if(first == true)
 			{
 			first = false;
 			if(dataVector[i].previousCity == "")
 			{
+
+cout << "Error: Path from " << startingCity << " to " << destinationCity << " could not be found" << endl; 
 				return;					//we never found a path
-				cout << "Error: Path from " << startingCity << " to " << destinationCity << " could not be found" << endl; 
+				
 			}	
 			}
 			from = dataVector[i].previousCity;
@@ -420,10 +424,12 @@ bool first = true;
 			{
 				if(departureNodes[k].CityName == from)   //find corresponding departure node
 				{
-					
 
-			
 
+			cout << "looking for a flight from " << departureNodes[k].CityName << " to " << to << endl;
+			cout << "adding flight------" << endl;
+			//departureNodes[k].nextFlight(to, currentTime).print();
+			cout << "----------------" << endl;
 			flights.push_back(departureNodes[k].nextFlight(to, currentTime));
 			currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
 					if(from != startingCity)
