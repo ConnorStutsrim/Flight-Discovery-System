@@ -19,7 +19,8 @@ Flight::Flight() {
 	duration = 0;
 }
 
-//Value-input constructor
+//				Value-input constructors
+//string, float, int constructor
 Flight::Flight(string departureCity, string destinationCity, float cost, int departureTime, int destinationTime){
 	this->departureCity = departureCity;
 	this->destinationCity = destinationCity;
@@ -28,7 +29,7 @@ Flight::Flight(string departureCity, string destinationCity, float cost, int dep
 	this->destinationTime = Time(destinationTime);
 	this->duration = destinationTime - departureTime;
 }
-
+//string, float, string constructor
 Flight::Flight(string departureCity, string destinationCity, float cost, Time departureTime, Time destinationTime){
 	this->departureCity = departureCity;
 	this->destinationCity = destinationCity;
@@ -37,7 +38,7 @@ Flight::Flight(string departureCity, string destinationCity, float cost, Time de
 	this->destinationTime = destinationTime;
 	this->duration = destinationTime - departureTime;
 }
-
+//string, string, string constructor
 Flight::Flight(string departureCity, string destinationCity, string cost, string departureTime, string destinationTime){
 	this->departureCity = departureCity;
 
@@ -63,7 +64,9 @@ Flight::Flight(string inputString) {
 Utility Functions
 */
 
-//convert time string to int using ascii code
+// Converts time string to int
+// Takes a string formatted as <HH:mm><am/pm>
+// Returns an integer number of minutes since midnight
 int Flight::timeStringToInt(string Atime){
 	int TimeInt;
 	if (Atime.length() == 7){
@@ -84,6 +87,8 @@ int Flight::timeStringToInt(string Atime){
 	return TimeInt;
 }
 
+// Prints the flight details to cout
+// Prints flight detials in format <Departure City> <Destination City> <Departure Time> <Destination Time> $<cost>
 void Flight::print() {
 	cout << departureCity << " " << destinationCity << " " << departureTime << " " << destinationTime << " $" << cost << endl;
 }
