@@ -28,6 +28,7 @@ public:
 	void CheapestTrip(string start,string prevCity ,string dest, int currentTime);
 	void setFlightVector();
 	void addFlight(Flight);
+	void printFlightVector();
 	void createDataVector();
 	void print();
 	void printDataVector();
