@@ -74,18 +74,13 @@ void Trip::userInput(){
 	cout << "Please Specify Return Trip Information: " << endl;
 
 	while (1){
-		cout<<"Return Date(DD/MM/YYYY): ";
-		getline(cin,temp);
-		if (!checkDate(temp)){
-			cout<<"Wrong Format!"<<endl;
-		}
-		else if (Date(temp)<Date(depDate)||Date(temp)==Date(depDate)){
-			cout<<"Return Date Must Be After Departure Date!"<<endl;
-		}
-		else{
-			returnDate=temp;
+		cout << "Return Date(DD/MM/YYYY): ";
+		getline(cin, temp);
+		if (checkDate(temp)){
+			returnDate = temp;
 			break;
 		}
+		else{ cout << "Wrong Format!" << endl; }
 	}
 
 	while (1){
@@ -115,7 +110,8 @@ string Trip::getDestCity()
 // Departure City getter
 int Trip::getDepTime()
 {
-int TimeInt;
+  cout << "Time String" << depTime << endl;
+  int TimeInt;
 	if (depTime.length() == 7){
 		TimeInt = ((depTime[0] - 48) * 600) + ((depTime[1] - 48) * 60) + ((depTime[3] - 48) * 10) + (depTime[4] - 48);
 		if (depTime[5] == 'p'){
@@ -128,7 +124,7 @@ int TimeInt;
 			TimeInt = TimeInt + 720;
 		}
 	}
-	if (TimeInt >= 1440) {
+	if (TimeInt >= 1440 || (TimeInt >= 720 && TimeInt < 780)) {
 		TimeInt -= 720;
 	}
 	return TimeInt;
