@@ -24,7 +24,6 @@ public:
 	string getDestCity();
 	int getDepTime();
 	int getReturnTime();
-	int Date();
 };
 
 bool checkCity(string);
