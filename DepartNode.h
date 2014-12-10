@@ -19,6 +19,7 @@ public:
 	void setCityName(string);
 	void addFlight(Flight);
 	Flight nextFlight(std::string, Time);
+	Flight nextFlightAnyTime(std::string, Time);
 	void print();
 };
 
