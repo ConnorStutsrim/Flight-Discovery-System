@@ -34,12 +34,10 @@ void DepartNode::addFlight(Flight newFlight) {
 Flight DepartNode::nextFlight(std::string destCityName, Time currentTime) {
   Flight retFlight;
   retFlight.departureTime.timeInt = 1441;
-  cout << "current time" << currentTime << endl;
   for (int i = 0; i < DestinationList.size(); i++) {
     if (DestinationList[i].CityName == destCityName) {
       for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
 	if (DestinationList[i].FlightList[j].departureTime.timeInt >= currentTime.timeInt) { 
-	  cout <<  "Flight Departure Time" << DestinationList[i].FlightList[j].departureTime.timeInt << endl;
 	  if (DestinationList[i].FlightList[j].departureTime.timeInt < retFlight.departureTime.timeInt) {
 	    retFlight = DestinationList[i].FlightList[j];
 	  }
@@ -66,6 +64,24 @@ Flight DepartNode::nextFlightAnyTime(std::string destCityName, Time currentTime)
       if (retFlight.departureTime.timeInt == 1441) {
 	for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
 	  if (DestinationList[i].FlightList[j].departureTime.timeInt < retFlight.departureTime.timeInt) {
+	    retFlight = DestinationList[i].FlightList[j];
+	  }
+	}
+      }
+      break;
+    }
+  }
+  return retFlight; 
+}
+
+Flight DepartNode::nextFlightCheapest(std::string destCityName, Time currentTime) {
+  Flight retFlight;
+  retFlight.cost = -1;
+  for (int i = 0; i < DestinationList.size(); i++) {
+    if (DestinationList[i].CityName == destCityName) {
+      for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
+	if (DestinationList[i].FlightList[j].departureTime.timeInt >= currentTime.timeInt) { 
+	  if (DestinationList[i].FlightList[j].cost < retFlight.cost || retFlight.cost == -1) {
 	    retFlight = DestinationList[i].FlightList[j];
 	  }
 	}
