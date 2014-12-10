@@ -146,7 +146,7 @@ int TimeInt;
 			TimeInt = TimeInt + 720;
 		}
 	}
-	if (TimeInt >= 1440 || TimeInt == 720) {
+	if (TimeInt >= 1440 || (TimeInt>=720&&TimeInt<780)) {
 		TimeInt -= 720;
 	}
 	return TimeInt;
