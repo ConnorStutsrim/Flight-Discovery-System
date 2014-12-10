@@ -12,7 +12,6 @@ firstTravelIteration = true;
 void DDFS::createDataVector(string city)
 {
   cost = 0;
-  hops = 0;
   startingCity = city;
   for(int i =0; i < departureNodes.size(); i++)
     {
@@ -59,6 +58,7 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 	  startingTime = currentTime;
 	  startingCity = start;
 		destinationCity = dest;
+		iti = 'J';
 	//	cout << "you want to go from " << start <<endl << "to " << dest << endl << " you want all flights to be after : " << currentTime << "minutes before midnight" << endl;
 		if(start == dest)
 		{
@@ -140,13 +140,14 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
     
 }
 
-void DDFS::FewestHops(string start, string prevCity, string dest, int currentTime)
+void DDFS::FewestHops(string start, string prevCity, string dest, int currentTime, int hops)
 {
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
 	  startingTime = currentTime;
 	  startingCity = start;
 		destinationCity = dest;
+		iti = 'F';
 		hops = 0;
 		if(start == dest)
 		{
@@ -162,7 +163,7 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 			{
 				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 				{
-					FewestHops(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+					FewestHops(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime, hops);
 					
 				}
 			}
@@ -180,7 +181,7 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
-						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;
+						currentTime = departureNodes[i].nextFlightAnyTime(start, currentTime).destinationTime.timeInt;
 						hops= hops+1;		
 
 
@@ -206,7 +207,7 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 						{
 							for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 							{
-								FewestHops(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
+								FewestHops(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime, hops);
 							}
 						}
 					}
@@ -229,6 +230,7 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
 	  startingTime = currentTime;
 		startingCity = start;
 		destinationCity = dest;
+		iti = 'S';
 		
 		if(start == dest)
 		{
@@ -311,6 +313,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 	  startingTime = currentTime;
 		startingCity = start;
 		destinationCity = dest;
+		iti = 'C';
 		cost = 0;
 		if(start == dest)
 		{
@@ -430,8 +433,20 @@ cout << "Error: Path from " << startingCity << " to " << destinationCity << " co
 			cout << "adding flight------" << endl;
 			//departureNodes[k].nextFlight(to, currentTime).print();
 			cout << "----------------" << endl;
-			flights.push_back(departureNodes[k].nextFlight(to, currentTime));
-			currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
+		
+if(iti == 'J')
+	{
+
+	flights.push_back(departureNodes[k].nextFlight(to, currentTime));
+	currentTime = departureNodes[k].nextFlight(to, currentTime).destinationTime.timeInt;
+	}
+
+if(iti == 'F')
+	{
+
+	flights.push_back(departureNodes[k].nextFlightAnyTime(to, currentTime));
+	currentTime = departureNodes[k].nextFlightAnyTime(to, currentTime).destinationTime.timeInt;
+	}
 					if(from != startingCity)
 					{
 						to = dataVector[i].previousCity;
