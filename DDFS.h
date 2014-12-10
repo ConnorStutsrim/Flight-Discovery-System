@@ -19,6 +19,7 @@ private:
 	bool firstTravelIteration;
 	int cost;	//variable used for DDFS:FewestHops()
 	int hops;	//variable used for DDFS:CheapestTrip()
+	Time startingTime;
 	
 public:
 	DDFS();
