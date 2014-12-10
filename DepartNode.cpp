@@ -33,6 +33,7 @@ void DepartNode::addFlight(Flight newFlight) {
 
 Flight DepartNode::nextFlight(std::string destCityName, Time currentTime) {
   Flight retFlight;
+currentTime.timeInt = 0; //take this out once time is fixed
   for (int i = 0; i < DestinationList.size(); i++) {
     if (DestinationList[i].CityName == destCityName) {
       for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
