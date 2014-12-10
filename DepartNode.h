@@ -1,26 +1,39 @@
-#ifndef DEPARTNODE_H_
-#define DEPARTNODE_H_
-
-#include "DestNode.h"
-#include <string>
+#ifndef DDFS_H_
+#define DDFS_H_
+#include "DepartNode.h"
 #include <vector>
 
-class DepartNode {
-private:
-	
+struct data{
+string currentCity;
+int cumulativeTime;
+string previousCity;
+};
 
+class DDFS {
+private:
+	std::vector<data> dataVector;
+	std::vector<DepartNode> departureNodes;
+	std::vector<Flight> flights;
+	string startingCity;
+	string destinationCity;
+	bool firstTravelIteration;
+	int cost;	//variable used for DDFS:FewestHops()
+	int hops;	//variable used for DDFS:CheapestTrip()
+	Time startingTime;
+	
 public:
-	DepartNode();
-	
-	string CityName;
-	vector<Flight> FlightList;
-	vector<DestNode> DestinationList;
-	
-	void setCityName(string);
+	DDFS();
+	void JustGetMeThereToday(string start,string prevCity ,string dest, int currentTime);
+	void FewestHops(string start,string prevCity ,string dest, int currentTime);
+	void ShortestTrip(string start,string prevCity ,string dest, int currentTime);
+	void CheapestTrip(string start,string prevCity ,string dest, int currentTime);
+	void setFlightVector();
 	void addFlight(Flight);
-	Flight nextFlight(std::string, Time);
-	Flight nextFlightAnyTime(std::string, Time);
+	void printFlightVector();
+	void createDataVector(string city);
 	void print();
+	void printDataVector();
+
 };
 
 #endif
