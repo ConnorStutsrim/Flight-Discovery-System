@@ -82,7 +82,7 @@ void userObjective(DDFS d, Trip t) {
   }
   else if (temp == 'F') {
 	d.createDataVector(t.getDepartCity());
-	d.FewestHops(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
+	d.FewestHops(t.getDepartCity(), "", t.getDestCity(), t.getDepTime(), 0);
 	d.setFlightVector();
 	d.printFlightVector();
 
