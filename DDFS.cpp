@@ -11,22 +11,22 @@ firstTravelIteration = true;
 
 void DDFS::createDataVector(string city)
 {
-cost = 0;
-hops = 0;
-startingCity = city;
-for(int i =0; i < departureNodes.size(); i++)
-{
-data d;
-d.cumulativeTime = INT_MAX;
-if(departureNodes[i].CityName == startingCity)
-{	//It takes 0 minutes/dollars/hops to get to from starting city to starting city
-d.cumulativeTime = 0;
-}
-d.currentCity = departureNodes[i].CityName;
-d.previousCity = "";
-dataVector.push_back(d);
-}
-
+  cost = 0;
+  hops = 0;
+  startingCity = city;
+  for(int i =0; i < departureNodes.size(); i++)
+    {
+      data d;
+      d.cumulativeTime = INT_MAX;
+      if(departureNodes[i].CityName == startingCity)
+	{	//It takes 0 minutes/dollars/hops to get to from starting city to starting city
+	  d.cumulativeTime = 0;
+	}
+      d.currentCity = departureNodes[i].CityName;
+      d.previousCity = "";
+      dataVector.push_back(d);
+    }
+  
 }
 
 void DDFS::addFlight(Flight newFlight) {
@@ -53,11 +53,11 @@ void DDFS::addFlight(Flight newFlight) {
 
 void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int currentTime)
 {
- 
 		
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
-		startingCity = start;
+	  startingTime = currentTime;
+	  startingCity = start;
 		destinationCity = dest;
 	//	cout << "you want to go from " << start <<endl << "to " << dest << endl << " you want all flights to be after : " << currentTime << "minutes before midnight" << endl;
 		if(start == dest)
@@ -94,6 +94,7 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 					{
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
+						  cout << "Current Time" << currentTime << endl;
 						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		
 						if(currentTime > (24*60)) //reached the next day
 						{
@@ -143,7 +144,8 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 {
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
-		startingCity = start;
+	  startingTime = currentTime;
+	  startingCity = start;
 		destinationCity = dest;
 		hops = 0;
 		if(start == dest)
@@ -224,6 +226,7 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
 		
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
+	  startingTime = currentTime;
 		startingCity = start;
 		destinationCity = dest;
 		
@@ -305,6 +308,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 		
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
+	  startingTime = currentTime;
 		startingCity = start;
 		destinationCity = dest;
 		cost = 0;
@@ -390,9 +394,9 @@ void DDFS::setFlightVector()
 {
 string from;
 string to;
-int currentTime;
+int currentTime = startingTime.timeInt;
 to = destinationCity;
-currentTime = 0;
+ cout << "Current Time" << currentTime<< endl;;
 bool first = true;
 
 	for(int i = 0; i < dataVector.size(); i++)
