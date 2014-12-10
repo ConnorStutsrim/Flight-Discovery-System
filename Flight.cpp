@@ -68,35 +68,23 @@ Utility Functions
 // Takes a string formatted as <HH:mm><am/pm>
 // Returns an integer number of minutes since midnight
 int Flight::timeStringToInt(string Atime){
-	// Unifying String
-	char TimeString[7];
-	int timeInt;
-	if (Atime.length() != 7) {
-		TimeString[0] = '0';
-		for (int i = 1; i <= 6; i++) {
-			TimeString[i] = Atime[i - 1];
+	int TimeInt;
+	if (Atime.length() == 7){
+		TimeInt = ((Atime[0] - 48) * 600) + ((Atime[1] - 48) * 60) + ((Atime[3] - 48) * 10) + (Atime[4] - 48);
+		if (Atime[5] == 'p'){
+			TimeInt = TimeInt + 720;
 		}
 	}
-	else {
-		if (Atime[1] == '2') {
-			TimeString[0] = '0';
-			TimeString[1] = '0';
-			for (int i = 2; i <= 6; i++) {
-				TimeString[i] = Atime[i];
-			}
-		}
-		else {
-			for (int i = 0; i <= 6; i++) {
-				TimeString[i] = Atime[i];
-			}
+	else{
+		TimeInt = (Atime[0] - 48) * 60 + (Atime[2] - 48) * 10 + (Atime[3] - 48);
+		if (Atime[4] == 'p'){
+			TimeInt = TimeInt + 720;
 		}
 	}
-	// Calculating timeInt;
-	if (TimeString[5] == 'p') {
-		timeInt += 720;
+	if (TimeInt >= 1440 || TimeInt == 720) {
+		TimeInt -= 720;
 	}
-	timeInt += (((TimeString[0] - 48) * 600) + ((TimeString[1] - 48) * 60) + ((TimeString[3]  - 48)* 10) + (TimeString[4] - 48));
-	return timeInt;
+	return TimeInt;
 }
 
 // Prints the flight details to cout
