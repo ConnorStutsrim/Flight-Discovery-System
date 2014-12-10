@@ -33,19 +33,49 @@ void DepartNode::addFlight(Flight newFlight) {
 
 Flight DepartNode::nextFlight(std::string destCityName, Time currentTime) {
   Flight retFlight;
-currentTime.timeInt = 0; //take this out once time is fixed
+  retFlight.departureTime.timeInt = 1441;
+  cout << "current time" << currentTime << endl;
   for (int i = 0; i < DestinationList.size(); i++) {
     if (DestinationList[i].CityName == destCityName) {
       for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
-	if (DestinationList[i].FlightList[j].departureTime.timeInt > currentTime.timeInt) {
-	  retFlight = DestinationList[i].FlightList[j];
-	  break;
+	if (DestinationList[i].FlightList[j].departureTime.timeInt >= currentTime.timeInt) { 
+	  cout <<  "Flight Departure Time" << DestinationList[i].FlightList[j].departureTime.timeInt << endl;
+	  if (DestinationList[i].FlightList[j].departureTime.timeInt < retFlight.departureTime.timeInt) {
+	    retFlight = DestinationList[i].FlightList[j];
+	  }
 	}
       }
+      break;
     }
   }
   return retFlight; 
 }
+
+Flight DepartNode::nextFlightAnyTime(std::string destCityName, Time currentTime) {
+  Flight retFlight;
+  retFlight.departureTime.timeInt = 1441;
+  for (int i = 0; i < DestinationList.size(); i++) {
+    if (DestinationList[i].CityName == destCityName) {
+      for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
+	if (DestinationList[i].FlightList[j].departureTime.timeInt > currentTime.timeInt) {
+	  if (DestinationList[i].FlightList[j].departureTime.timeInt < retFlight.departureTime.timeInt) {
+	    retFlight = DestinationList[i].FlightList[j];
+	  }
+	}
+      }
+      if (retFlight.departureTime.timeInt == 1441) {
+	for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
+	  if (DestinationList[i].FlightList[j].departureTime.timeInt < retFlight.departureTime.timeInt) {
+	    retFlight = DestinationList[i].FlightList[j];
+	  }
+	}
+      }
+      break;
+    }
+  }
+  return retFlight; 
+}
+	
 
 void DepartNode::print() {
 	for (int i = 0; i < FlightList.size(); i++) {
