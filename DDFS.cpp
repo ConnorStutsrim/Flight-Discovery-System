@@ -70,7 +70,7 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 
 		firstTravelIteration = false;
 		prevCity = start;
-		currentTime = 0;
+		cout << "Current Time" << currentTime << endl;
 		for(int i = 0; i < departureNodes.size(); i++)
 		{
 			if(departureNodes[i].CityName == start)   //find corresponding departure node
@@ -141,26 +141,16 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 
 void DDFS::FewestHops(string start, string prevCity, string dest, int currentTime)
 {
- 
-		cout << firstTravelIteration << endl;
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
 		startingCity = start;
 		destinationCity = dest;
 		hops = 0;
-		cout << "start: " << start << endl;
-		cout << "dest: " << dest << endl;
-		cout << "currentTime: " << currentTime << endl;
-		cout << "hops: " << hops << endl;
-		currentTime = 0;						cout << "blah " << endl;
 		if(start == dest)
 		{
 		cout << "Error: You're already there... " << endl;
 		return;
 		}
-							cout << "blah " << endl;
-
-
 		firstTravelIteration = false;
 		prevCity = start;
 	
@@ -170,10 +160,8 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 			{
 				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 				{
-					cout << "1" << endl;
 					FewestHops(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
-					cout << "2" << endl;
-
+					
 				}
 			}
 		}
