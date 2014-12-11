@@ -17,7 +17,6 @@ private:
 	string startingCity;
 	string destinationCity;
 	bool firstTravelIteration;
-	int cost;	
 	Time startingTime;
 	char iti;
 	
@@ -26,7 +25,7 @@ public:
 	void JustGetMeThereToday(string start,string prevCity ,string dest, int currentTime);
 	void FewestHops(string start,string prevCity ,string dest, int currentTime, int hops);
 	void ShortestTrip(string start,string prevCity ,string dest, int currentTime);
-	void CheapestTrip(string start,string prevCity ,string dest, int currentTime);
+	void CheapestTrip(string start,string prevCity ,string dest, int currentTime, int cost);
 	void setFlightVector();
 	void addFlight(Flight);
 	void printFlightVector();
