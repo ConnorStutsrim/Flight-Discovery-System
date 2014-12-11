@@ -87,6 +87,7 @@ void userObjective(DDFS d, Trip t) {
 	d.printFlightVector();
 
 
+
   }
   else if (temp == 'S') {
 	d.createDataVector(t.getDepartCity());
@@ -96,7 +97,7 @@ void userObjective(DDFS d, Trip t) {
   }
   else if (temp == 'C') {
 	d.createDataVector(t.getDepartCity());
-	d.CheapestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime());
+	d.CheapestTrip(t.getDepartCity(), "", t.getDestCity(), t.getDepTime(), 0);
 	d.setFlightVector();
 	d.printFlightVector();
   }
