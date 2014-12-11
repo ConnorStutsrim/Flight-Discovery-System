@@ -76,12 +76,15 @@ Flight DepartNode::nextFlightAnyTime(std::string destCityName, Time currentTime)
 
 Flight DepartNode::nextFlightCheapest(std::string destCityName, Time currentTime) {
   Flight retFlight;
-  retFlight.cost = -1;
+  retFlight.cost = FLT_MAX;
+  cout << "starting nextFlightCheapest" << endl;
+  cout << "Depart Node: " << this -> CityName << endl;
+  cout << "Destination: " << destCityName << endl;
   for (int i = 0; i < DestinationList.size(); i++) {
     if (DestinationList[i].CityName == destCityName) {
       for (int j = 0; j < DestinationList[i].FlightList.size(); j++) {
 	if (DestinationList[i].FlightList[j].departureTime.timeInt >= currentTime.timeInt) { 
-	  if (DestinationList[i].FlightList[j].cost < retFlight.cost || retFlight.cost == -1) {
+	  if (DestinationList[i].FlightList[j].cost < retFlight.cost) {
 	    retFlight = DestinationList[i].FlightList[j];
 	  }
 	}
@@ -89,6 +92,7 @@ Flight DepartNode::nextFlightCheapest(std::string destCityName, Time currentTime
       break;
     }
   }
+  cout << "flight: " << retFlight.cost << endl;
   return retFlight; 
 }
 	

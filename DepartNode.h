@@ -4,6 +4,7 @@
 #include "DestNode.h"
 #include <string>
 #include <vector>
+#include <cfloat>
 
 class DepartNode {
 private:
