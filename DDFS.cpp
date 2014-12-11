@@ -11,7 +11,6 @@ firstTravelIteration = true;
 
 void DDFS::createDataVector(string city)
 {
-  cost = 0;
   startingCity = city;
   for(int i =0; i < departureNodes.size(); i++)
     {
@@ -95,7 +94,8 @@ void DDFS::JustGetMeThereToday(string start, string prevCity, string dest, int c
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
 						  cout << "Current Time" << currentTime << endl;
-						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		
+						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;	
+
 						if(currentTime > (24*60)) //reached the next day
 						{
 						cout << "No flights to get you there that day" << endl;
@@ -181,8 +181,23 @@ void DDFS::FewestHops(string start, string prevCity, string dest, int currentTim
 
 						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
 						{
-						currentTime = departureNodes[i].nextFlightAnyTime(start, currentTime).destinationTime.timeInt;
-						hops= hops+1;		
+
+
+//						currentTime = departureNodes[i].nextFlightAnyTime(start, currentTime).destinationTime.timeInt;
+	Flight f;
+	f =  departureNodes[i].nextFlightAnyTime(start, currentTime %1440);
+	int temp = f.destinationTime.timeInt - (currentTime % 1440);
+
+	if(temp >= 0)
+	{
+	currentTime += temp;			
+	}	
+	else
+	{
+		currentTime  += 1440 - currentTime % 1440;
+		currentTime += f.destinationTime.timeInt;
+	}
+				hops= hops+1;		
 
 
 
@@ -264,12 +279,22 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
 
 		for(int i = 0; i < departureNodes.size(); i++)
 					{
-						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
-						{
-						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		//find a flight flight from prevCity to start and increment
+					if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
+		{
+		Flight f;
+		f =  departureNodes[i].nextFlightCheapest(start, currentTime %1440);
+		int temp = f.destinationTime.timeInt - (currentTime % 1440);
 
-
-						}
+		if(temp >= 0)
+		{
+			currentTime += temp;			
+		}	
+		else
+		{
+			currentTime  += 1440 - currentTime % 1440;
+			currentTime += f.destinationTime.timeInt;
+		}
+		}
 					}
 
 	
@@ -304,13 +329,13 @@ void DDFS::ShortestTrip(string start, string prevCity, string dest, int currentT
     
 }
 
-void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentTime)
+void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentTime, int cost)
 {
  
 		
 	if(firstTravelIteration == true)	//dont increment time for first iteration, no traveling done
 	{
-	  startingTime = currentTime;
+		startingTime = currentTime;
 		startingCity = start;
 		destinationCity = dest;
 		iti = 'C';
@@ -332,7 +357,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 			{
 				for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 				{
-					CheapestTrip(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime);
+					CheapestTrip(departureNodes[i].DestinationList[j].CityName, prevCity, dest, currentTime, cost);
 
 				}
 			}
@@ -345,21 +370,31 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 
 
 
-		for(int i = 0; i < departureNodes.size(); i++)
-					{
-						if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
-						{
-						currentTime = departureNodes[i].nextFlight(start, currentTime).destinationTime.timeInt;		//find a flight flight from prevCity to start and increment
+	for(int i = 0; i < departureNodes.size(); i++)
+	{
+		if(departureNodes[i].CityName == prevCity)   //find corresponding departure node
+		{
+		Flight f;
+		f =  departureNodes[i].nextFlightCheapest(start, currentTime %1440);
+		int temp = f.destinationTime.timeInt - (currentTime % 1440);
 
-						if(currentTime > (24*60)) //reached the next day
-						{
+		if(temp >= 0)
+		{
+			currentTime += temp;			
+		}	
+		else
+		{
+			currentTime  += 1440 - currentTime % 1440;
+			currentTime += f.destinationTime.timeInt;
+		}
+				cost = cost + f.cost;		
 
-			//			return;
-						
-						cost+= departureNodes[i].nextFlight(start, currentTime).cost;	
 
-						}
-					}
+
+		}
+
+	}
+					
 
 	
 
@@ -367,7 +402,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 		{
 		if(dataVector[i].currentCity == start)	//find the corresponding data for this city
 			{
-			if(dataVector[i].cumulativeTime > cost) //if it's faster
+			if(dataVector[i].cumulativeTime > cost) //if it's cheaper
 				{
 				dataVector[i].cumulativeTime = cost; //update data
 				dataVector[i].previousCity = prevCity;
@@ -379,7 +414,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 						{
 							for(int j = 0; j < departureNodes[i].DestinationList.size(); j++) // travel to each one of the cities
 							{
-								CheapestTrip(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime);
+								CheapestTrip(departureNodes[k].DestinationList[j].CityName, start, dest, currentTime, cost);
 							}
 						}
 					}
@@ -391,7 +426,7 @@ void DDFS::CheapestTrip(string start, string prevCity, string dest, int currentT
 	
     }
     
-}
+
 }
 void DDFS::setFlightVector()
 {
@@ -443,9 +478,62 @@ if(iti == 'J')
 
 if(iti == 'F')
 	{
+	
 
-	flights.push_back(departureNodes[k].nextFlightAnyTime(to, currentTime));
-	currentTime = departureNodes[k].nextFlightAnyTime(to, currentTime).destinationTime.timeInt;
+	Flight f;
+	f =  departureNodes[i].nextFlightAnyTime(to, currentTime %1440);
+	flights.push_back(f);
+	int temp = f.destinationTime.timeInt - (currentTime % 1440);
+
+	if(temp >= 0)
+	{
+	currentTime += temp;			
+	}	
+	else
+	{
+		currentTime  += 1440 - currentTime % 1440;
+		currentTime += f.destinationTime.timeInt;
+	}
+	}
+if(iti == 'S')
+	{
+	
+
+	Flight f;
+	f =  departureNodes[i].nextFlightAnyTime(to, currentTime %1440);
+	flights.push_back(f);
+	int temp = f.destinationTime.timeInt - (currentTime % 1440);
+
+	if(temp >= 0)
+	{
+	currentTime += temp;			
+	}	
+	else
+	{
+		currentTime  += 1440 - currentTime % 1440;
+		currentTime += f.destinationTime.timeInt;
+	}
+	}
+if(iti == 'C')
+	{
+	
+
+	Flight f;
+	f =  departureNodes[i].nextFlightCheapest(to, currentTime %1440);
+	cout << "f is ";
+	f.print();
+	flights.push_back(f);
+	int temp = f.destinationTime.timeInt - (currentTime % 1440);
+
+	if(temp >= 0)
+	{
+	currentTime += temp;			
+	}	
+	else
+	{
+		currentTime  += 1440 - currentTime % 1440;
+		currentTime += f.destinationTime.timeInt;
+	}
 	}
 					if(from != startingCity)
 					{
